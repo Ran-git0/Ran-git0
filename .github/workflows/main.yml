@@ -5,11 +5,12 @@ on:
     - cron: "0 0 * * *"
   workflow_dispatch:
   push:
-    branches: ["master", "main"]
+    branches: ["main", "master"]
 
 jobs:
   github-metrics:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     permissions:
       contents: write
     steps:
@@ -20,35 +21,35 @@ jobs:
           user: Ran-git0
           filename: github-metrics.svg
 
-          base: header, metadata
-
-          # use your custom template from your fork repo
           template: "@ran-terminal"
-          setup_community_templates: "Ran-git0/metrics@master:ran-terminal+trust"
+          setup_community_templates: "Ran-git0/metrics@main:ran-terminal+trust"
 
-          # requested plugins
-          plugin_steam: yes
-          plugin_steam_token: ${{ secrets.STEAM_TOKEN }}
-          plugin_steam_user: "YOUR_STEAM_ID_64"
-          plugin_steam_sections: player, most-played, recently-played
-          plugin_steam_games_limit: 2
-          plugin_steam_recent_games_limit: 2
-          plugin_steam_achievements_limit: 3
+          base: header, metadata
+          use_prebuilt_image: yes
+          debug: yes
 
-          plugin_languages: yes
-          plugin_languages_indepth: yes
-          plugin_languages_sections: most-used, recently-used
-          plugin_languages_limit: 8
+          plugin_introduction: yes
+          plugin_introduction_title: no
+          plugin_gists: yes
 
           plugin_activity: yes
           plugin_activity_limit: 6
           plugin_activity_days: 14
+
+          plugin_languages: yes
+          plugin_languages_sections: most-used,recently-used
+          plugin_languages_indepth: no
+          plugin_languages_limit: 8
 
           plugin_topics: yes
           plugin_topics_mode: starred
           plugin_topics_sort: starred
           plugin_topics_limit: 12
 
-          plugin_gists: yes
-          plugin_introduction: yes
-          plugin_introduction_title: no
+          plugin_steam: yes
+          plugin_steam_token: ${{ secrets.STEAM_TOKEN }}
+          plugin_steam_user: "71D6C3C8B64FC8D6A36596E422E827DD"
+          plugin_steam_sections: player,most-played,recently-played
+          plugin_steam_games_limit: 2
+          plugin_steam_recent_games_limit: 2
+          plugin_steam_achievements_limit: 3
