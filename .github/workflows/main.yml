@@ -14,7 +14,7 @@ jobs:
       contents: write
     steps:
       - name: Generate metrics
-        uses: Ran-git0/metrics@main
+        uses: Ran-git0/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           user: Ran-git0
