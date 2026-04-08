@@ -1,21 +1,37 @@
 name: Metrics
+
 on:
-  # Schedule daily updates
-  schedule: [{cron: "0 0 * * *"}]
-  # (optional) Run workflow manually
+  schedule:
+    - cron: "0 0 * * *"
   workflow_dispatch:
-  # (optional) Run workflow when pushing on master/main
-  push: {branches: ["master", "main"]}
+  push:
+    branches: ["master", "main"]
+
 jobs:
   github-metrics:
     runs-on: ubuntu-latest
-    environment: 
-      name: production
     permissions:
       contents: write
     steps:
-      - uses: lowlighter/metrics@latest
+      - name: Generate metrics (ran-terminal + steam)
+        uses: Ran-git0/metrics@main
         with:
           token: ${{ secrets.METRICS_TOKEN }}
-          template: terminal
+          user: Ran-git0
+
+          # output file in your profile repo
+          filename: metrics.svg
+
+          # your custom template folder name (use exact folder name under source/templates)
+          template: ran-terminal
+
           base: header, metadata
+
+          # Steam plugin
+          plugin_steam: yes
+          plugin_steam_token: ${{ secrets.STEAM_TOKEN }}
+          plugin_steam_user: "76561198042365119"
+          plugin_steam_sections: player, most-played, recently-played
+          plugin_steam_games_limit: 2
+          plugin_steam_recent_games_limit: 2
+          plugin_steam_achievements_limit: 3
